@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../lib/axios";
 import { toast } from "react-hot-toast";
-import {signup} from '../lib/api';
+import {signup,sendOtp} from '../lib/api';
 
 const SignUpPage = () => {
   const [signupData, setsignupData] = useState({
@@ -12,6 +12,9 @@ const SignUpPage = () => {
     email: "",
     password: "",
   });
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+
 
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -31,7 +34,34 @@ const SignUpPage = () => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    signupMutation(signupData);
+    if (!signupData.fullName || !signupData.email || !signupData.password) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    if (!otp) {
+      toast.error("Please enter the OTP sent to your email");
+      return;
+    }
+
+    console.log("📦 Signup Payload:", { ...signupData, otp });
+
+    signupMutation({...signupData,otp});
+  };
+const handleSendOtp = async () => {
+    try {
+      if (!signupData.email) {
+        toast.error("Please enter your email first");
+        return;
+      }
+
+      await sendOtp(signupData.email);
+      toast.success("OTP sent to your email!");
+      setOtpSent(true);
+    } catch (error) {
+      console.error("Send OTP error:", error);
+      toast.error(error?.response?.data?.message || "Failed to send OTP");
+    }
   };
 
   return (
@@ -66,21 +96,46 @@ const SignUpPage = () => {
                     required
                   />
                 </div>
-
                 <div className="form-control w-full">
                   <label className="label">
                     <span className="label-text">Email</span>
                   </label>
-                  <input
-                    type="email"
-                    placeholder="john@gmail.com"
-                    className="input input-bordered w-full"
-                    value={signupData.email}
-                    onChange={(e) => setsignupData({ ...signupData, email: e.target.value })}
-                    required
-                  />
+                  <div className="flex gap-2">
+                    <input
+                      type="email"
+                      placeholder="john@gmail.com"
+                      className="input input-bordered w-full"
+                      value={signupData.email}
+                      onChange={(e) => setsignupData({ ...signupData, email: e.target.value })}
+                      required
+                    />
+                    <button
+                      type="button"
+                      className="btn btn-outline btn-primary"
+                      onClick={handleSendOtp}
+                    >
+                      Send OTP
+                    </button>
+                  </div>
                 </div>
 
+                {/* OTP Input */}
+                {otpSent && (
+                  <div className="form-control w-full">
+                    <label className="label">
+                      <span className="label-text">OTP</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter OTP"
+                      className="input input-bordered w-full"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value)}
+                      required
+                    />
+                  </div>
+                )}
+                
                 <div className="form-control w-full">
                   <label className="label">
                     <span className="label-text">Password</span>

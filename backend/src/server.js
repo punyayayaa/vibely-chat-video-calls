@@ -7,6 +7,7 @@ import userRoutes from "./routes/user.route.js";
 import chatRoutes from "./routes/chat.route.js";
 import { connectDB } from "./lib/db.js";
 import avatarRoutes from "./routes/avatar.route.js";
+import otpRoutes from "./routes/otp.route.js";
 import path from "path";
 
 dotenv.config();
@@ -26,6 +27,7 @@ app.use("/api/auth",authRoutes);
 app.use("/api/users",userRoutes);
 app.use("/api/chat",chatRoutes);
 app.use("/api/avatar", avatarRoutes);
+app.use("/api/otp", otpRoutes);
 if (process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname,"../frontend/dist")));
 }

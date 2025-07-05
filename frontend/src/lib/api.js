@@ -87,3 +87,7 @@ export async function getStreamToken() {
   const response = await axiosInstance.get("/chat/token");
   return response.data;
 }
+export const sendOtp = async (email) => {
+  const response = await axiosInstance.post("/otp/send", { email });
+  return response.data;
+};
