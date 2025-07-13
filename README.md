@@ -43,9 +43,9 @@ A **real-time web app for chatting and video calling**, featuring screen sharing
 
 ---
 
- ##Future Scope
+ ## Future Scope
  
-###Ideas for Future Improvements:
+### Ideas for Future Improvements:
 
 - Voice messages
 
