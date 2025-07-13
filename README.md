@@ -1,88 +1,60 @@
-                                                 Chat & Video Calling App
+ # VIBELY - A CHAT AND VIDEO CALLING WEB APP 💬
 
-A real-time web app for chatting and video calls, featuring screen sharing, message reactions, recording, and more — built with modern web technologies 
-and around 20+ themes.
+A **real-time web app for chatting and video calling**, featuring screen sharing, message reactions, recording, and more — built with modern web technologies.
+##  Features
 
-**Features**
+- 🔐 Secure **OTP Email Verification** during sign-up
+- 📞 Real-time **Video Calling**
+- 💬 Instant **Text Chat** (1:1)
+- 🧑‍🤝‍🧑 Friend Request System
+- ✅ Onboarding Profile Setup
+- 🌐 JWT-based authentication (with HTTP-only cookies)
+- 📡 Socket.io/ WebRTC
+- 🛡️ Protected Routes with Middleware
+- 📬 Email service with Nodemailer & Gmail
+---
 
-. Real-time 1:1 chat with message replies
+## 🛠️ Tech Stack
 
-.Friend requests & user recommendations
+### Frontend
+- React.js + Vite
+- React Router DOM
+- Axios
+- TailwindCSS / DaisyUI
+- React Query
+- Toast Notifications (react-hot-toast)
 
-.Auto-translate messages based on user language
+### Backend
+- Express.js
+- MongoDB with Mongoose
+- JWT (HTTP-only Cookies)
+- Nodemailer for Email OTP
+- WebRTC / Socket.IO (for real-time features)
 
-.Video calling with:
+---
 
-.Screen sharing
+## 🔐 OTP Authentication Flow
 
-.Recording support
+1. User enters their email & clicks "Send OTP".
+2. OTP is emailed using **Nodemailer + Gmail App Password**.
+3. Backend stores OTP temporarily in MongoDB (`Otp` collection).
+4. On form submit, OTP is verified.
+5. If valid, user is created and logged in with JWT.
 
-.Emoji reactions
+---
 
-.Random avatars (choose random profile pictures)
-
-.20+ Themes
-
-**Tech Stack**
-
-Frontend: React, Vite, TailwindCSS, StreamChat
-
-Backend: Node.js, Express, Prisma ORM
-
-Database: PostgreSQL
-
-Authentication: JWT
-
-Other: React Query, Socket.IO 
-
-**Setup Instructions**
-
-1. Clone the repo
-   git clone https://github.com/yourusername/chat-video-app.git
-   cd chat-video-app
-
-2. Environment Variables
-Backend (/backend/.env)
-DATABASE_URL=postgresql://<username>:<password>@localhost:5432/chatapp
-JWT_SECRET=your_jwt_secret
-PORT=3000
-Frontend (/frontend/.env)
-VITE_STREAM_API_KEY=your_stream_key
-3. Install & Run
-Backend
-cd backend
-npm install
-npx prisma generate
-npx prisma migrate dev
-npm start
-Frontend
-cd frontend
-npm install
-npm run dev
-
-**API Endpoints**
-
-**Method**	**Route**                    **Description**
-
-POST	    /api/auth/signup	               User signup
-POST	    /api/auth/login	                 User login
-POST	    /api/users/onboarding 	         Complete onboarding
-GET	      /api/users/me                    Get logged-in user
-POST	    /api/users/friend-request/:id	   Send friend request
-GET	      /api/avatar/:seed	               Get avatar image
-
- **Future Scope**
+ ##Future Scope
  
-Ideas for Future Improvements
+###Ideas for Future Improvements:
 
-. Voice messages
+- Voice messages
 
-. Push notifications
+- Push notifications
 
-. Language matching algorithm and auto translation of chats 
+- Language matching algorithm and auto translation of chats 
 
-. Group chats
+- Group chats
 
-. Email authentication
+
 
 
